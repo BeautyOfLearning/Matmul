@@ -65,13 +65,8 @@ int **read_matrix(char *filename)
   {
     for (int j = 0; j < ncol; j++)
     {
-      if (j == ncol - 1)
-        fscanf(f, "%d", &a[i][j]);
-      else
-        fscanf(f, "%d ", &a[i][j]);
+      fscanf(f, "%d", &a[i][j]);
     }
-    if (i < nrow - 1)
-      fscanf(f, "\n");
   }
   fclose(f);
   return a;
@@ -106,13 +101,13 @@ bool array_equal(int **a, int **b, int nrow, int ncol)
 
 int main(int argc, char const *argv[])
 {
-  assert (argc >= 3);
+  assert(argc >= 3);
   int nrow = strtol(argv[1], NULL, 10), ncol = strtol(argv[2], NULL, 10);
   int **a = get_rand_matrix(nrow, ncol);
   print_matrix(a, nrow, ncol);
   char *filename = "mat.txt";
   write_matrix(a, nrow, ncol, filename);
-  int** b = read_matrix(filename);
+  int **b = read_matrix(filename);
   assert(array_equal(a, b, nrow, ncol));
   free_2d_array(b, nrow);
   free_2d_array(a, nrow);
